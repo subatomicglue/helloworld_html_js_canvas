@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <canvas id="myCanvas" width="400" height="300" style="border: 5px solid purple;"></canvas>
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        let pos = 0;
+
+        function drawCircle( element ) {
+          // Define circle properties
+          const centerX = pos + canvas.width / 2; // X-coordinate of the center
+          const centerY = canvas.height / 2; // Y-coordinate of the center
+          const radius = 70; // Radius of the circle
+
+          // Start a new path
+          ctx.beginPath();
+
+          // Create the arc for the circle
+          // ctx.arc(x, y, radius, startAngle, endAngle, counterclockwise)
+          ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+
+          // Set the fill color and fill the circle
+          ctx.fillStyle = 'green';
+          ctx.fill();
+
+          // Set the stroke style (line width and color) and draw the outline
+          ctx.lineWidth = 5;
+          ctx.strokeStyle = '#003300'; // Dark green
+          ctx.stroke();
+        }
+
+        function clearCanvas() {
+          // Clear the entire canvas
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function ani( element ) {
+          console.log( pos)
+          pos++;
+          clearCanvas()
+          drawCircle( element );
+          if (pos < 100) {
+              requestAnimationFrame(ani);
+          }
+        }
+    </script>
+
+
+    <button onclick="drawCircle(this)">drawCircle</button>
+    <button onclick="clearCanvas(this)">clearCanvas</button>
+    <button onclick="pos=0;ani(this)">animate from x=0 until x=100</button>
+</body>
+</html>
